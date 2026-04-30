@@ -1,14 +1,28 @@
 import React from 'react';
 import Card from '../card/Card';
+import { CompanySearch } from '../../api'; // Importamos a interface para tipar as props
 
-interface Props {}
+interface Props {
+  searchResults: CompanySearch[];
+}
 
-const CardList: React.FC<Props> = (props: Props): React.JSX.Element => {
+const CardList: React.FC<Props> = ({ searchResults }: Props): React.JSX.Element => {
   return (
     <div>
-      <Card companyName="Apple" ticker="AAPL" price={110} />
-      <Card companyName="Microsoft" ticker="MSFT" price={200} />
-      <Card companyName="Tesla" ticker="TSLA" price={300} />
+      {searchResults.length > 0 ? (
+        searchResults.map((result) => {
+          return (
+            <Card 
+              key={result.symbol} 
+              companyName={result.description} // No Finnhub usamos 'description'
+              ticker={result.symbol} 
+              price={0} // O endpoint de search do Finnhub não traz o preço (precisaria de outra chamada)
+            />
+          );
+        })
+      ) : (
+        <h1>No results found</h1>
+      )}
     </div>
   );
 };
