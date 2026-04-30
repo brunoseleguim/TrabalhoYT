@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import "./card.css";
 
+// Interface que define a estrutura da nossa "Stock" (Ação)
 interface Props {
   companyName: string;
   ticker: string;
   price: number;
 }
 
-// Mudança aqui: Tipagem da função e do retorno
 const Card: React.FC<Props> = ({ companyName, ticker, price }: Props): React.JSX.Element => {
   return (
     <div className="card">
@@ -16,6 +16,7 @@ const Card: React.FC<Props> = ({ companyName, ticker, price }: Props): React.JSX
         alt="Stock"
       />
       <div className="details">
+        {/* Lembre-se de remover o parêntese extra que estava no seu h2 */}
         <h2>{companyName} ({ticker})</h2>
         <p>${price}</p>
       </div>
@@ -23,7 +24,7 @@ const Card: React.FC<Props> = ({ companyName, ticker, price }: Props): React.JSX
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

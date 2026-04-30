@@ -1,9 +1,8 @@
-import React from 'react'
-import Card from '../card/Card'
+import React from 'react';
+import Card from '../card/Card';
 
 interface Props {}
 
-// Mudança aqui também: Tipagem profissional
 const CardList: React.FC<Props> = (props: Props): React.JSX.Element => {
   return (
     <div>
@@ -11,7 +10,7 @@ const CardList: React.FC<Props> = (props: Props): React.JSX.Element => {
       <Card companyName="Microsoft" ticker="MSFT" price={200} />
       <Card companyName="Tesla" ticker="TSLA" price={300} />
     </div>
-  )
-}
+  );
+};
 
-export default CardList
+export default CardList;
