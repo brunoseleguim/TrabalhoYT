@@ -6,6 +6,7 @@ interface Props {
   searchResults: CompanySearch[];
 }
 
+
 const CardList: React.FC<Props> = ({ searchResults }: Props): React.JSX.Element => {
   return (
     <div>
