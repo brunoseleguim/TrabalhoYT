@@ -20,14 +20,12 @@ function App() {
 
   if (typeof result === "string") {
     setServerError(result);
-  } else if (result && typeof result === "object") {
-    // Usamos uma verificação segura para acessar .data
-    const data = (result as any).data; 
-    if (Array.isArray(data)) {
-      setSearchResult(data);
-      setServerError(null);
-    }
-  }
+  } else if (result && typeof result === "object" && "data" in result) {
+    // O Finnhub retorna a lista dentro de 'result', e o Axios coloca tudo em 'data'
+    // Portanto, o caminho é result.data.result
+    setSearchResult(result.data.result); 
+    setServerError(null);
+}
 };
   return (
   <div className="App">

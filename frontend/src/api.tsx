@@ -17,7 +17,7 @@ export const searchCompanies = async (query: string) => {
     const data = await axios.get<SearchResponse>(
       `https://finnhub.io/api/v1/search?q=${query}&token=${process.env.REACT_APP_API_KEY}`
     );
-    return data;
+return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log("Erro na API: ", error.message);
