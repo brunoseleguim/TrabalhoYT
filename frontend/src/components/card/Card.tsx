@@ -1,7 +1,7 @@
 import React from 'react';
 import "./card.css";
 
-// Interface que define a estrutura da nossa "Stock" (Ação)
+// Interface que define a estrutura das propriedades que o Card recebe
 interface Props {
   companyName: string;
   ticker: string;
@@ -12,16 +12,17 @@ const Card: React.FC<Props> = ({ companyName, ticker, price }: Props): React.JSX
   return (
     <div className="card">
       <img
-        src="https://s.yimg.com/ny/api/res/1.2/Fe2ID8yI9erQgqpNh.la9Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2Ng--/https://media.zenfs.com/en/the_motley_fool_261/9558c5bc1963a96d67c909460a526749"
-        alt="Stock"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNJDqdbpEacFBKi2aV53PhK9Hdrp3IndEf3g&s"
+        alt="Stock Chart"
       />
       <div className="details">
-        {/* Lembre-se de remover o parêntese extra que estava no seu h2 */}
-        <h2>{companyName} ({ticker})</h2>
-        <p>${price}</p>
+        {/* Exibe o nome da empresa e o ticker (símbolo) de forma clara */}
+        <h2>{companyName}</h2>
+        <p className="ticker-label">{ticker}</p>
+        <p className="price-tag">${price}</p>
       </div>
       <p className="info">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Informações detalhadas sobre a empresa {ticker} aparecerão aqui conforme o desenvolvimento do projeto.
       </p>
     </div>
   );
