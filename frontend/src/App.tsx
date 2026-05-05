@@ -3,26 +3,34 @@ import "./App.css";
 import CardList from "./components/CardList/CardList";
 import Search from "./components/Search/Search";
 import { searchCompanies } from "./api"; 
-import { CompanySearch } from "./api"; // Importe a interface da API
+import { CompanySearch } from "./api";
 
 function App() {
   const [search, setSearch] = useState<string>("");
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // 1. Renomeado para handleSearchChange para ser mais explícito
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const onClick = async (e: SyntheticEvent) => {
+  // 2. Nova função para lidar com a criação do portfólio (mencionada aos 07:34)
+  const onPortfolioCreate = (e: any) => {
+    e.preventDefault();
+    console.log(e); // No vídeo, ele testa o disparo do evento aqui
+  };
+
+  // 3. Renomeado para onSearchSubmit (refatoração do Search para Form)
+  const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const result = await searchCompanies(search);
 
     if (typeof result === "string") {
       setServerError(result);
     } else if (result?.data) {
-      // O Finnhub retorna a lista em 'result' e o Axios em 'data'
-      setSearchResult(result.data.result); 
+      // Ajuste conforme a estrutura da sua API
+      setSearchResult(result.data); 
       setServerError(null);
     }
   };
@@ -30,9 +38,20 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <Search onClick={onClick} search={search} handleChange={handleChange} />
+        {/* Passando as funções com os novos nomes */}
+        <Search 
+          onSearchSubmit={onSearchSubmit} 
+          search={search} 
+          handleSearchChange={handleSearchChange} 
+        />
+        
         {serverError && <div className="error-message">{serverError}</div>}
-        <CardList searchResults={searchResult} />
+        
+        {/* Adicionado onPortfolioCreate para o Prop Drilling até o botão "Add" */}
+        <CardList 
+          searchResults={searchResult} 
+          onPortfolioCreate={onPortfolioCreate} 
+        />
       </div>
     </div>
   );

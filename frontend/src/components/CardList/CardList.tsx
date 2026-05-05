@@ -1,30 +1,31 @@
-import React from 'react';
-import Card from '../card/Card';
-import { CompanySearch } from '../../api';
-import "./CardList.css"; // 1. Certifique-se de importar o CSS
+import React, { SyntheticEvent } from "react";
+import Card from "../card/Card";
+import { CompanySearch } from "../../api";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   searchResults: CompanySearch[];
+  // 1. Adicionou a definição da função nas Props
+  onPortfolioCreate: (e: SyntheticEvent) => void;
 }
 
-const CardList: React.FC<Props> = ({ searchResults }: Props): React.JSX.Element => {
+const CardList: React.FC<Props> = ({ searchResults, onPortfolioCreate }: Props): React.JSX.Element => {
   return (
-    /* 2. Adicionada a className="card-list" para ativar o Grid do CSS */
-    <div className="card-list">
+    <div>
       {searchResults.length > 0 ? (
         searchResults.map((result) => {
           return (
-            <Card 
-              key={result.symbol} 
-              companyName={result.description} 
-              ticker={result.symbol} 
-              price={0} 
+            <Card
+              id={result.symbol}
+              key={uuidv4()}
+              searchResult={result}
+              // 2. Repassou a função para o componente Card
+              onPortfolioCreate={onPortfolioCreate}
             />
           );
         })
       ) : (
-        /* 3. Adicionada a classe para estilizar a mensagem de "não encontrado" */
-        <h1 className="no-results">No results found</h1>
+        <h1>No results</h1>
       )}
     </div>
   );
