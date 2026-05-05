@@ -23,17 +23,23 @@ function App() {
 
   // 3. Renomeado para onSearchSubmit (refatoração do Search para Form)
   const onSearchSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    const result = await searchCompanies(search);
+  e.preventDefault();
+  const result = await searchCompanies(search);
 
-    if (typeof result === "string") {
-      setServerError(result);
-    } else if (result?.data) {
-      // Ajuste conforme a estrutura da sua API
-      setSearchResult(result.data); 
-      setServerError(null);
-    }
-  };
+  if (typeof result === "string") {
+    setServerError(result);
+  } else if (result?.data) {
+    // Tente estas duas opções:
+    // Opção A (FMP API): setSearchResult(result.data);
+    // Opção B (Finnhub API): setSearchResult(result.data.result);
+    
+    // Verifique no console se result.data.result existe
+    const data = result.data.result ? result.data.result : result.data;
+    
+    setSearchResult(data); 
+    setServerError(null);
+  }
+};
 
   return (
     <div className="App">

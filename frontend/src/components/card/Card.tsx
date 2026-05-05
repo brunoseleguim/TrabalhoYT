@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import "./Card.css";
+import "./card.css";
 import { CompanySearch } from "../../api";
 
 import AddPortfolio from "../portifolio/addPortifolio/addPortifolio";
@@ -20,12 +20,9 @@ const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }: Props): 
     >
       <div className="details">
         <h2 className="font-bold text-center text-veryDarkViolet md:text-left">
-          {searchResult.name} ({searchResult.symbol})
+          {searchResult.description} ({searchResult.symbol})
         </h2>
-        <p className="text-veryDarkBlue">{searchResult.currency}</p>
-        <p className="font-bold text-veryDarkBlue">
-          {searchResult.exchangeShortName} - {searchResult.stockExchange}
-        </p>
+        
       </div>
       {/* 2. Adicionou o componente AddPortfolio passando as props necessárias */}
       <AddPortfolio
