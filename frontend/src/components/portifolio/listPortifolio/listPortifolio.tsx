@@ -1,29 +1,24 @@
 import React from "react";
 import CardPortfolio from "../cardPortifolio/cardProtifolio";
-
+//import "./listPortifolio.css";
 interface Props {
   portfolioValues: string[];
 }
 
 const ListPortfolio = ({ portfolioValues }: Props) => {
   return (
-    <section id="portfolio">
-      <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
-        My Portfolio
-      </h2>
-      <div className="relative flex flex-col max-w-5xl mx-auto px-10 md:px-6 lg:px-0">
-        <ul className="flex flex-wrap justify-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {portfolioValues &&
-            portfolioValues.map((portfolioValue) => {
-              return (
-                <CardPortfolio
-                  key={portfolioValue}
-                  portfolioValue={portfolioValue}
-                />
-              );
-            })}
-        </ul>
-      </div>
+    <section id="portfolio" className="px-4 mb-5 mt-5">
+      <h2 className="text-2xl font-bold mb-4">My Portfolio</h2>
+      {/* O segredo está nestas classes: flex flex-wrap gap-3 */}
+      <ul className="flex flex-wrap gap-3 justify-start">
+        {portfolioValues &&
+          portfolioValues.map((portfolioValue) => (
+            <CardPortfolio
+              key={portfolioValue}
+              portfolioValue={portfolioValue}
+            />
+          ))}
+      </ul>
     </section>
   );
 };

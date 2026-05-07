@@ -29,10 +29,10 @@ const Search: React.FC<Props> = ({
           />
           {/* O botão não precisa mais de onClick, pois o onSubmit do form cuida disso */}
           <button
-            type="submit"
-            className="p-3 px-10 text-white bg-lightBlue rounded-lg hover:opacity-70 focus:outline-none"
-          >
-            Search
+             type="submit"
+             className="p-2 px-8 text-black bg-lightBlue rounded-lg hover:opacity-70 focus:outline-none font-bold ml-2"
+              >
+                Search
           </button>
         </form>
       </div>

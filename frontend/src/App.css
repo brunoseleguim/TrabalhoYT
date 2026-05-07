@@ -1,3 +1,17 @@
+/* No seu arquivo CSS principal */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App.css */
 .App {
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Um cinza bem clarinho de fundo */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }

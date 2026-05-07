@@ -11,21 +11,25 @@ interface Props {
 const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }: Props): React.JSX.Element => {
   return (
     <div
-      className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row shadow-sm mb-3"
+      className="flex flex-col items-center justify-between w-full p-6 bg-white rounded-lg shadow-lg border border-slate-200 md:flex-row mb-3 transition-shadow hover:shadow-xl"
       key={id}
       id={id}
     >
       <div className="flex flex-col">
         <h2 className="font-bold text-center text-veryDarkViolet md:text-left text-lg">
-          {searchResult.description || searchResult.description} ({searchResult.symbol})
+          {searchResult.description} ({searchResult.symbol})
         </h2>
+        {/* Adicionei uma margem rápida aqui caso queira colocar o setor ou preço embaixo */}
+        <p className="text-slate-500 text-sm">{searchResult.type}</p>
       </div>
       
-      {/* O componente de botão fica do lado direito em telas maiores (md:flex-row) */}
-      <AddPortfolio
-        onPortfolioCreate={onPortfolioCreate}
-        symbol={searchResult.symbol}
-      />
+      {/* Container do botão com margem no topo para mobile */}
+      <div className="mt-4 md:mt-0">
+        <AddPortfolio
+          onPortfolioCreate={onPortfolioCreate}
+          symbol={searchResult.symbol}
+        />
+      </div>
     </div>
   );
 };

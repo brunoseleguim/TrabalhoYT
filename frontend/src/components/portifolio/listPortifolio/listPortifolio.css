@@ -1,0 +1,41 @@
+/* Container principal da seção de portfólio */
+#portfolio {
+    padding: 2rem 1rem;
+    background-color: #f9fafb; /* Cinza bem claro para destacar do fundo */
+}
+
+/* Título "My Portfolio" */
+#portfolio h2 {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.875rem; /* 30px */
+    font-weight: 600;
+    text-align: center;
+    color: #111827;
+}
+
+/* Container que limita a largura da lista */
+.portfolio-list-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 64rem; /* 1024px */
+    margin: 0 auto;
+}
+
+/* A lista (ul) organizada em Grid/Flex */
+.portfolio-list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+}
+
+/* Ajuste para telas maiores (simulando o comportamento do vídeo) */
+@media (min-width: 768px) {
+    #portfolio h2 {
+        font-size: 2.25rem; /* 36px */
+    }
+}
