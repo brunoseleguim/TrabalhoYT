@@ -2,13 +2,13 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import "./App.css";
 import CardList from "./components/CardList/CardList";
 import Search from "./components/Search/Search";
-import ListPortfolio from "./components/portifolio/listPortifolio/listPortifolio"; // Importe o novo componente
+import ListPortfolio from "./components/portifolio/listPortifolio/listPortifolio";
 import { searchCompanies } from "./api"; 
 import { CompanySearch } from "./api";
 
 function App() {
   const [search, setSearch] = useState<string>("");
-  const [portfolioValues, setPortfolioValues] = useState<string[]>([]); // Estado para o portfólio [00:03:00]
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -29,20 +29,23 @@ function App() {
     }
   };
 
-  // Lógica finalizada do vídeo para adicionar ao portfólio [00:10:00]
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
-    
-    // Pega o valor do ticker (geralmente vindo de um input hidden ou valor do botão no evento)
     const value = e.target[0].value;
-
-    // Verifica se já existe para evitar duplicatas
     const exists = portfolioValues.find((v) => v === value);
     if (exists) return;
-
-    // Atualização imutável usando Spread Operator
     const updatedPortfolio = [...portfolioValues, value];
     setPortfolioValues(updatedPortfolio);
+  };
+
+  // --- NOVA FUNÇÃO DE DELETE (AULA 14) ---
+  const onPortfolioDelete = (e: any) => {
+    e.preventDefault();
+    // O filter cria um novo array removendo apenas o item que clicamos [00:01:51]
+    const removed = portfolioValues.filter((value) => {
+      return value !== e.target[0].value;
+    });
+    setPortfolioValues(removed);
   };
 
   return (
@@ -54,8 +57,11 @@ function App() {
           handleSearchChange={handleSearchChange} 
         />
         
-        {/* Exibe a lista do Portfólio (Ações Adicionadas) */}
-        <ListPortfolio portfolioValues={portfolioValues} />
+        {/* Agora passamos a função de delete para o portfólio [00:03:19] */}
+        <ListPortfolio 
+          portfolioValues={portfolioValues} 
+          onPortfolioDelete={onPortfolioDelete} 
+        />
 
         {serverError && <div className="error-message">{serverError}</div>}
         
