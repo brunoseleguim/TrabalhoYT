@@ -2,58 +2,63 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import "./App.css";
 import CardList from "./components/CardList/CardList";
 import Search from "./components/Search/Search";
+import ListPortfolio from "./components/portifolio/listPortifolio/listPortifolio"; // Importe o novo componente
 import { searchCompanies } from "./api"; 
 import { CompanySearch } from "./api";
 
 function App() {
   const [search, setSearch] = useState<string>("");
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]); // Estado para o portfólio [00:03:00]
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
 
-  // 1. Renomeado para handleSearchChange para ser mais explícito
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  // 2. Nova função para lidar com a criação do portfólio (mencionada aos 07:34)
-  const onPortfolioCreate = (e: any) => {
+  const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log(e); // No vídeo, ele testa o disparo do evento aqui
+    const result = await searchCompanies(search);
+
+    if (typeof result === "string") {
+      setServerError(result);
+    } else if (result?.data) {
+      const data = result.data.result ? result.data.result : result.data;
+      setSearchResult(data); 
+      setServerError(null);
+    }
   };
 
-  // 3. Renomeado para onSearchSubmit (refatoração do Search para Form)
-  const onSearchSubmit = async (e: SyntheticEvent) => {
-  e.preventDefault();
-  const result = await searchCompanies(search);
+  // Lógica finalizada do vídeo para adicionar ao portfólio [00:10:00]
+  const onPortfolioCreate = (e: any) => {
+    e.preventDefault();
+    
+    // Pega o valor do ticker (geralmente vindo de um input hidden ou valor do botão no evento)
+    const value = e.target[0].value;
 
-  if (typeof result === "string") {
-    setServerError(result);
-  } else if (result?.data) {
-    // Tente estas duas opções:
-    // Opção A (FMP API): setSearchResult(result.data);
-    // Opção B (Finnhub API): setSearchResult(result.data.result);
-    
-    // Verifique no console se result.data.result existe
-    const data = result.data.result ? result.data.result : result.data;
-    
-    setSearchResult(data); 
-    setServerError(null);
-  }
-};
+    // Verifica se já existe para evitar duplicatas
+    const exists = portfolioValues.find((v) => v === value);
+    if (exists) return;
+
+    // Atualização imutável usando Spread Operator
+    const updatedPortfolio = [...portfolioValues, value];
+    setPortfolioValues(updatedPortfolio);
+  };
 
   return (
     <div className="App">
       <div className="container">
-        {/* Passando as funções com os novos nomes */}
         <Search 
           onSearchSubmit={onSearchSubmit} 
           search={search} 
           handleSearchChange={handleSearchChange} 
         />
         
+        {/* Exibe a lista do Portfólio (Ações Adicionadas) */}
+        <ListPortfolio portfolioValues={portfolioValues} />
+
         {serverError && <div className="error-message">{serverError}</div>}
         
-        {/* Adicionado onPortfolioCreate para o Prop Drilling até o botão "Add" */}
         <CardList 
           searchResults={searchResult} 
           onPortfolioCreate={onPortfolioCreate} 
