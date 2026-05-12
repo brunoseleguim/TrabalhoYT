@@ -1,6 +1,7 @@
 import React from "react";
 import hero from "./hero.png";
 import "./hero.css";
+import { Link } from "react-router-dom"; // Importação para navegação interna
 
 interface Props {}
 
@@ -18,13 +19,13 @@ const Hero = (props: Props) => {
             news.
           </p>
           <div className="mx-auto lg:mx-0">
-            {/* Link Estilizado como Botão */}
-            <a
-              href="/search"
+            {/* Trocamos <a> por <Link> e href por to */}
+            <Link
+              to="/search"
               className="py-5 px-10 text-2xl font-bold text-white bg-lightBlue rounded lg:py-4 hover:opacity-70"
             >
               Get Started
-            </a>
+            </Link>
           </div>
         </div>
 

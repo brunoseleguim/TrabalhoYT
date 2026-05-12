@@ -1,4 +1,5 @@
 import React, { SyntheticEvent } from "react";
+import { Link } from "react-router-dom"; // Importação essencial para a navegação funcionar
 import { CompanySearch } from "../../api";
 import AddPortfolio from "../portifolio/addPortifolio/addPortifolio";
 
@@ -16,10 +17,13 @@ const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }: Props): 
       id={id}
     >
       <div className="flex flex-col">
-        <h2 className="font-bold text-center text-veryDarkViolet md:text-left text-lg">
+        {/* O nome agora é um Link que leva para a CompanyPage */}
+        <Link 
+          to={`/company/${searchResult.symbol}`} 
+          className="font-bold text-center text-veryDarkViolet md:text-left text-lg hover:text-lightBlue transition-colors"
+        >
           {searchResult.description} ({searchResult.symbol})
-        </h2>
-        {/* Adicionei uma margem rápida aqui caso queira colocar o setor ou preço embaixo */}
+        </Link>
         <p className="text-slate-500 text-sm">{searchResult.type}</p>
       </div>
       

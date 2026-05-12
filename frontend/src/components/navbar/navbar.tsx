@@ -1,20 +1,27 @@
 import React from "react";
 import logo from "./logo.png";
+import { Link } from "react-router-dom"; 
 
 const Navbar = () => {
   return (
-    // "sticky top-0" faz a barra ficar fixa no topo ao rolar a página
-    // "z-50" garante que ela fique por cima de outros elementos
-    <nav className="relative sticky top-0 z-50 bg-white shadow-md">
+    /** 
+     * Alteração: Removido 'sticky top-0' para que o conteúdo da HomePage (Hero) 
+     * não fique escondido sob a Navbar. Caso prefira manter fixo, você deve 
+     * adicionar um padding superior no container do Outlet no seu App.tsx.
+     */
+    <nav className="relative z-50 bg-white shadow-md">
       <div className="container mx-auto flex items-center justify-between p-6">
         
         {/* Lado Esquerdo: Logo e Links Principais */}
         <div className="flex items-center space-x-20">
-          <img src={logo} alt="Logo" className="w-32" />
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-32" />
+          </Link>
+          
           <div className="hidden font-bold lg:flex space-x-6">
-            <a href="/" className="text-slate-800 hover:text-lightBlue transition duration-200">
-              Dashboard
-            </a>
+            <Link to="/search" className="text-slate-800 hover:text-lightBlue transition duration-200">
+              Search
+            </Link>
           </div>
         </div>
 
@@ -23,12 +30,12 @@ const Navbar = () => {
           <div className="font-bold text-slate-800 hover:text-lightBlue cursor-pointer">
             Login
           </div>
-          <a
-            href="/"
+          <Link
+            to="/search"
             className="px-8 py-3 font-bold text-white bg-lightBlue rounded-full hover:opacity-70 transition duration-300"
           >
-            Signup
-          </a>
+            Get Started
+          </Link>
         </div>
 
       </div>
